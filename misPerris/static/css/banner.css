@@ -1,0 +1,31 @@
+
+#banner{
+    margin-top: 50px;
+    position: relative;
+}
+
+#banner img{
+    width: 100%;
+}
+
+#banner .contenedor{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    transform: translateX(-50%) translateY(-50%);
+}
+#banner a{
+    display: block;
+    width: 100px;
+    color: violet;
+    background: tomato;
+    text-decoration: none;
+    margin-top: 15px;
+    padding: 5px;
+    border-radius: 10px;
+}
+#banner a:hover{
+    background: black;
+}

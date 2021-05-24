@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'dist/css/lightbox.min.css' %}">
+<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+{% endblock css %}
+
+{% block contenido %}
+<section id="bienvenida">
+    <h2>Galeria de Imagenes</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto fugiat repellat recusandae a animi
+        aut magnam quibusdam reprehenderit aperiam nihil minus id voluptates vitae, error delectus dolores!
+        Error, minus mollitia.</p>
+
+    <form action="{% url 'FILTROT' %}" method="post">
+        {% csrf_token %}
+        Filtro por Categoria:
+        <select name="cboTipo" id="cboTipo">
+            {% for reg in tipos %}
+            <option>{{reg.nombre}}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Enviar">
+    </form>
+
+
+    <form action="{% url 'FILTROD' %}" method="post">
+        {% csrf_token %}
+        Filtro por palabras claves:
+        <input type="text" name="txtTexto" id="txtTexto">
+        <input type="submit" value="Filtrar">
+    </form>
+
+    <input type="button" value="Listar Todo" onclick="javascript:location.href='/galeria/'">
+
+    <input type="button" value="Gatos" onclick="javascript:location.href='/filtro_tipo_mascota/Gatos'">
+    <input type="button" value="Perros" onclick="javascript:location.href='/filtro_tipo_mascota/Perro'">
+</section>
+
+<section id="blog">
+    <h3>Quieren un hogar</h3>
+    <!-- consumir un servicio web con JavaScript -->
+    <input type="button" value="Recuperar Dolar" onclick="recuperaDolar()">
+    <script>
+        function recuperaDolar() {
+            fetch("https://mindicador.cl/api/dolar")
+                .then(function (response) {
+                    response.json().then(function (data) {
+                        console.log(data);
+                        var dolar = data.serie[0].valor;
+                        document.getElementById("valor_dolar").innerHTML = dolar;
+                    });
+                });
+        }
+    </script>
+    <div id="valor_dolar"></div>
+
+    <!-- recuperacion de valor del euro con JQuery (acceso a web service)-->
+    <input type="button" value="Recuperar Euro" id="btnRecuperaEuro">
+    <script>
+        $(document).ready(function () {
+            // se realiza de forma automatica al momento de cargar la pagina
+            $.get("https://mindicador.cl/api/euro", function (data) {
+                var euro = data.serie[0].valor;
+                $("#valor_euro").html(euro);
+            });
+
+            //proceso que se desarrolla al momento de pinchar el boton   
+            $("#btnRecuperaEuro").click(function () {
+                $.get("https://mindicador.cl/api/euro", function (data) {
+                    var euro = data.serie[0].valor;
+                    $("#valor_euro").html(euro);
+                });
+            });
+        });
+    </script>
+    <div id="valor_euro"></div>
+
+    <div class="contenedor">
+        {% for reg in mascotas %}
+        <article>
+            <a href="{{reg.imagen.url}}" data-lightbox="perros" data-title="{{reg.descripcion}}">
+                <img src="{{reg.imagen.url}}" alt="">
+            </a>
+            <h4>{{reg.nombre}}</h4>
+            <h3>
+                <a href="{% url 'DM' reg.nombre %}">Ver Ficha</a>
+            </h3>
+        </article>
+        {% endfor %}
+    </div>
+    <div style="text-align: center;color: red;font-size: xx-large;">
+        {{cantidad}}
+    </div>
+</section>
+{% endblock contenido %}
+
+{% block js %}
+<script src="{% static 'dist/js/lightbox-plus-jquery.min.js' %}"></script>
+{% endblock js %}

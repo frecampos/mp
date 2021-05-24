@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/formuario.css' %}">
+    <script src="{% static 'js/sweetalert2.all.min.js' %}"></script>
+    <script src="{% static 'lib/jquery.js' %}"></script>
+    <script src="{% static 'dist_jqv/jquery.validate.min.js' %}"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+{% endblock css %}
+
+
+{% block contenido %} 
+      <section id="bienvenida">
+            <h2>Pagina de Administracion de mascotas: Usuario <b>{{user.username}} </b></h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto fugiat repellat recusandae a animi
+                aut magnam quibusdam reprehenderit aperiam nihil minus id voluptates vitae, error delectus dolores!
+                Error, minus mollitia.</p>
+        </section>
+        <section id="formulario">
+
+            <form class="form-registro" id="formu" action="{% url 'MODI' %}" method="POST" 
+            enctype="multipart/form-data" >
+                {% csrf_token %}
+                <h2 class="form-titulo">Modificar Mascota</h2>
+                
+                <div class="contenedor-imp">
+                    <input class="col-48" type="text" name="txtNombre" id="txtNombre" placeholder="ingrese nombre"
+                         pattern="[A-Za-z ]{3,25}" title="recuerde que es un nombre" value="{{mascota.nombre}}">
+                    <input class="col-48" type="number" name="txtEdad" id="txtEdad" value="{{mascota.edad}}" >
+                    <textarea class="col-100" style="margin-top: 15px;margin-bottom: 15px;" name="txtDesc" id="txtDesc">{{mascota.descripcion}}</textarea>                   
+                    Imagen Actual: <a href="{{mascota.imagen.url}}"> {{mascota.imagen.url}} </a> 
+                    <input class="col-100" style="margin-top: 15px;" type="file" name="txtImg" id="txtImg" value="{{mascota.imagen.url}}">
+                    <select class="col-100" style="margin-top: 15px;padding: 15px;" name="cboTipo" id="cboTipo">
+                        {% for item in tipos %}
+                            {% if item.nombre != mascota.tipo.nombre %}
+                                <option value="{{item.nombre}}">{{item.nombre}}</option>
+                            {% else %}
+                                <option value="{{item.nombre}}" selected>{{item.nombre}}</option>
+                            {% endif %}
+                        {% endfor %}            
+                    </select>
+
+                    <input class="btn-enviar" type="submit" value="Modificar">
+                    <input class="btn-enviar" type="button" value="Volver">
+                </div>
+            </form>
+            <div style="text-align: center;color: red;font-size: xx-large;">
+                {{mensaje}}
+            </div>
+        </section>
+
+
+{% endblock contenido %} 
+
+{% block js %} 
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+{% endblock js %}  

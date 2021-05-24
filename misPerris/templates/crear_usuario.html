@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/formuario.css' %}">
+    <script src="{% static 'js/sweetalert2.all.min.js' %}"></script>
+    <script src="{% static 'lib/jquery.js' %}"></script>
+    <script src="{% static 'dist_jqv/jquery.validate.min.js' %}"></script>
+{% endblock css %}
+
+
+{% block contenido %} 
+      <section id="bienvenida">
+            <h2>Formulario de inscripcion nuevo usuario</h2>
+        </section>
+        <section id="formulario">
+
+            <form class="form-registro" id="formu" action="" method="POST" 
+            enctype="multipart/form-data" >
+                {% csrf_token %}
+                <h2 class="form-titulo">Creacion Cuenta Usuario</h2>
+                
+                <div class="contenedor-imp">
+                    <input class="col-100" type="text" name="txtNombre" id="txtNombre" placeholder="ingrese nombre"
+                         pattern="[A-Za-z ]{3,25}" title="recuerde que es un nombre">
+                    <input class="col-100" type="text" name="txtApellido" id="txtApellido" placeholder="ingrese apellido"
+                         pattern="[A-Za-z ]{3,25}" title="recuerde que es un apellido">
+                    <input class="col-100" type="email" name="txtEmail" id="txtEmail" required placeholder="ingrese correo electronico">
+                    <input class="col-100" type="text" name="txtUsuario" id="txtUsuario" required placeholder="ingrese nombre de usuario" >
+                    <input class="col-100" type="password" name="txtPass1" id="txtPass1" required placeholder="ingrese password" >
+                    <input class="col-100" type="password" name="txtPass2" id="txtPass2" required placeholder="repita la password">
+                 
+                    
+                    <input class="btn-enviar" type="submit" value="Enviar">
+                    <input class="btn-enviar" type="reset" value="Limpiar">
+                    
+                </div>
+            </form>
+            <div style="text-align: center;color: red;font-size: xx-large;">
+                {{mensaje}}
+            </div>
+        </section>
+
+        <section>
+            <div id="listado">
+
+            </div>
+        </section>
+{% endblock contenido %} 
+
+{% block js %} 
+    <script src="js/registro.js"></script>
+    <script src="js/proceso.js"></script>
+    <script src="js/scripts.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            
+
+        });
+    </script>
+{% endblock js %}  

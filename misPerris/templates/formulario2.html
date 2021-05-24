@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria Mis Perris</title>
+    <link rel="stylesheet" href="css/estilo.css">
+    <link rel="stylesheet" href="css/fontello.css">
+    <script src="https://kit.fontawesome.com/dfb3e4516e.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/formuario.css">
+    <script src="js/sweetalert2.all.min.js"></script>
+    <script src="lib/jquery.js"></script>
+    <script src="dist_jqv/jquery.validate.min.js"></script>
+</head>
+
+<body>
+    
+
+    <script>
+        $(document).ready(function () {
+
+            //efectuar proceso de validacion
+            $("#formu").validate()
+
+        });
+    </script>
+    <!-- cabecera -->
+    <header>
+        <div class="contenedor">
+            <h1 class="icon-guidedog">Mis Perris</h1>
+
+            <input type="checkbox" name="" id="menu-bar">
+            <label class="fas fa-cat" for="menu-bar">
+
+            </label>
+            <!-- menu -->
+            <nav class="menu">
+                <a href="index.html">Index</a>
+                <a href="galeria.html">Galeria</a>
+                <a href="formulario.html">Formulario</a>
+                <a href="">Quienes Somos</a>
+            </nav>
+        </div>
+    </header>
+    <!-- cuerpo pagina-->
+    <main>
+        <section id="banner">
+            <img src="img/1529929537_419627_1529933291_noticia_normal.jpg" alt="">
+            <div class="contenedor">
+                <h2>Mascotas Felices en Mis Perris</h2>
+                <p>Cual es la mejor mascota</p>
+                <a href="">Leer Mas</a>
+            </div>
+        </section>
+
+        <section id="bienvenida">
+            <h2>Formulario de inscripcion para adoptar</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto fugiat repellat recusandae a animi
+                aut magnam quibusdam reprehenderit aperiam nihil minus id voluptates vitae, error delectus dolores!
+                Error, minus mollitia.</p>
+        </section>
+        <script src="js/registro.js"></script>
+        <script src="js/proceso.js"></script>
+        <script>
+
+
+        </script>
+        <section id="formulario">
+
+            <form class="form-registro" id="formu" action="" method="POST" onsubmit="return validarFormulario()">
+                <h2 class="form-titulo">Crear una Cuenta</h2>
+                <div class="contenedor-imp">
+                    <input class="col-48" type="text" name="txtNombre" id="txtNombre" placeholder="ingrese nombre"
+                        required pattern="[A-Z]{1}[A-Za-z ]{3,10}" title="recuerde que es un nombre">
+                    <input class="col-48" type="text" name="txtApellido" id="txtApellido" placeholder="ingrese apellido"
+                        required minlength="5">
+                    <input class="col-48" type="date" name="txtFechaNaci" id="txtFechaNaci" required>
+                    <input class="col-48" type="email" name="txtEmail" id="txtEmail" placeholder="ingrese correo"
+                        required minlength="7">
+                    <input class="col-48" type="text" name="txtUsuario" id="txtUsuario" placeholder="ingrese usuario"
+                        required minlength="5" maxlength="10">
+                    <input class="col-48" type="password" name="txtPass" id="txtPass" placeholder="ingrese password"
+                        required minlength="8" maxlength="10">
+                    <input class="col-48" type="text" name="txtFono" id="txtFono" placeholder="ingrese telefono"
+                        pattern="[0-9]{9}" title="el formato es numero de casa ej. 212558574">
+                    <input class="col-48" type="text" name="txtRut" id="txtRut" placeholder="ingrese rut" required
+                        minlength="9" maxlength="10">
+
+                    <input class="btn-enviar" type="submit" value="Enviar">
+
+                    <input class="btn-enviar" type="button" id="btnRegistrar" value="Registrar">
+                    <!--  <input class="btn-enviar" type="button" onclick="listar()" value="Leer">
+                    
+                    <input type="button" value="Hola" onclick="rut()">-->
+                </div>
+            </form>
+
+        </section>
+        <section>
+            <div id="listado">
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- pie de pagina-->
+    <footer>
+        <div class="contenedor">
+            <p>Mis Perris</p>
+        </div>
+    </footer>
+
+    <script src="js/scripts.js"></script>
+</body>
+
+</html>

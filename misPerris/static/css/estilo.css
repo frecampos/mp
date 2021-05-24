@@ -1,0 +1,50 @@
+@import url(menu.css);
+@import url(banner.css);
+@import url(blog.css);
+@import url(info.css);
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* el padding que se establece sera parte de las cajas*/
+}
+
+header {
+    width: 100%;
+    height: 50px;
+    background:#333;
+    color: burlywood;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+h1 {
+    float: left;
+}
+
+.contenedor{
+    width: 98%;
+    margin: auto;
+}
+
+header .contenedor{
+    display: table;
+}
+section{
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+#bienvenida{
+    text-align: center;
+    font-family: cursive;
+}
+
+footer{
+    font-family: cursive;
+    text-align: center;
+    height: 100px;
+    font-size: 15px;
+}

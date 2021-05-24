@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index Mis Perris</title>
+    <link rel="stylesheet" href="{% static '/css/estilo.css' %}">
+    <link rel="stylesheet" href="{% static '/css/fontello.css' %}">
+    <script src="https://kit.fontawesome.com/dfb3e4516e.js" crossorigin="anonymous"></script>
+    {% block css %}
+    
+    {% endblock css %}
+</head>
+
+<body>
+    <!-- cabecera -->
+    <header>
+        <div class="contenedor">
+            <h1 class="icon-guidedog">Mis Perris</h1>
+
+            <input type="checkbox" name="" id="menu-bar">
+            <label class="fas fa-cat" for="menu-bar">
+
+            </label>
+            <!-- menu -->
+            <nav class="menu">
+                <a href="{% url 'IND' %}">Index</a>
+                <a href="{% url 'GALE' %}">Galeria</a>             
+                <a href="">Contacto</a>
+                <a href="{% url 'FILTROTM' 'Gatos' %}">Galeria de Gatos</a>
+                <a href="">Quienes Somos</a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'FORMU' %}">Admi. Mascotas</a>
+                    <a href="{% url 'ADMUSER' %}">Mis Mascotas Adoptadas</a>
+                    <a href="{% url 'CERRAR' %}">Cerrar</a>
+                    <a href="">Bienvenido: {{user.first_name}} {{user.last_name}}</a>                    
+                {% else %}
+                    <a href="{% url 'LOGIN' %}">Login</a>
+                    <a href="{% url 'CREARU' %}">Crear Usuario</a>
+                {% endif%}
+                
+            </nav>
+        </div>
+    </header>
+    <!-- cuerpo pagina-->
+    <main>
+        <section id="banner">
+            <img src="{% static 'img/1529929537_419627_1529933291_noticia_normal.jpg' %}" alt="">
+            <div class="contenedor">
+                <h2>Mascotas Felices en Mis Perris</h2>
+                <p>Cual es la mejor mascota</p>
+                <a href="">Leer Mas</a>
+            </div>
+        </section>
+    <!-- region editable -->
+    {% block contenido %}
+    
+    {% endblock contenido %}
+    </main>
+
+    {% block js %}
+    
+    {% endblock js %}
+    <!-- pie de pagina-->
+    <footer>
+        <div class="contenedor">
+            <p>Mis Perris</p>
+        </div>
+    </footer>
+</body>
+
+</html>

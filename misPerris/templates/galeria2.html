@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria Mis Perris</title>
+    <link rel="stylesheet" href="css/estilo.css">
+    <link rel="stylesheet" href="css/fontello.css">
+    <script src="https://kit.fontawesome.com/dfb3e4516e.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="dist/css/lightbox.min.css">
+    <script src="js/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <!-- cabecera -->
+    <header>
+        <div class="contenedor">
+            <h1 class="icon-guidedog">Mis Perris</h1>
+
+            <input type="checkbox" name="" id="menu-bar">
+            <label class="fas fa-cat" for="menu-bar">
+
+            </label>
+            <!-- menu -->
+            <nav class="menu">
+                <a href="index.html">Index</a>
+                <a href="galeria.html">Galeria</a>
+                <a href="formulario.html">Formulario</a>
+                <a href="">Quienes Somos</a>
+            </nav>
+        </div>
+    </header>
+    <!-- cuerpo pagina-->
+    <main>
+        <section id="banner">
+            <img src="img/1529929537_419627_1529933291_noticia_normal.jpg" alt="">
+            <div class="contenedor">
+                <h2>Mascotas Felices en Mis Perris</h2>
+                <p>Cual es la mejor mascota</p>
+                <a href="">Leer Mas</a>
+            </div>
+        </section>
+
+        <section id="bienvenida">
+            <h2>Galeria de Imagenes COMIDAS</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto fugiat repellat recusandae a animi
+                aut magnam quibusdam reprehenderit aperiam nihil minus id voluptates vitae, error delectus dolores!
+                Error, minus mollitia.</p>
+        </section>
+
+        <section id="blog">
+
+            <input type="button" value="Recuperar Recetas" id="btnRecupera">
+            <script>
+                $(document).ready(function() {
+                    $("#btnRecupera").click(function() {
+                       $.get("https://www.themealdb.com/api/json/v1/1/categories.php", function(data){
+                           $.each(data.categories,function (reg, item) {
+                               $("#tabla").append("<tr>"+
+                                " <td>"+item.idCategory+"</td>"+
+                                " <td>"+item.strCategory+"</td>"+
+                                " <td><img src='"+item.strCategoryThumb+"'></td>"+
+                                " <td>"+item.strCategoryDescription+"</td>"+
+                                "</tr>");
+                           })
+                       });
+                    });
+                });
+            </script>
+            <table id="tabla">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Categoria</th>
+                        <th>Imagen</th>
+                        <th>Descripcion</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+            
+        </section>
+
+    </main>
+
+    <!-- pie de pagina-->
+    <footer>
+        <div class="contenedor">
+            <p>Mis Perris</p>
+        </div>
+    </footer>
+    <script src="dist/js/lightbox-plus-jquery.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+
+#info{
+    background: #333;
+    color: white;
+    font-family: cursive;
+    text-align: center;
+    padding: 15px;
+}
+
+.info-pet img{
+    width: 180px;
+    height: 180px;
+    border: solid 7px white;
+    border-radius: 50%;
+}
+
+#info .contenedor{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.info-pet{
+    margin: 15px;
+}

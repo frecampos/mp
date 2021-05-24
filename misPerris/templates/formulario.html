@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/formuario.css' %}">
+<script src="{% static 'js/sweetalert2.all.min.js' %}"></script>
+<script src="{% static 'lib/jquery.js' %}"></script>
+<script src="{% static 'dist_jqv/jquery.validate.min.js' %}"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+{% endblock css %}
+
+
+{% block contenido %}
+<section id="bienvenida">
+    <h2>Pagina de Administracion de mascotas: Usuario <b>{{user.username}} </b></h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto fugiat repellat recusandae a animi
+        aut magnam quibusdam reprehenderit aperiam nihil minus id voluptates vitae, error delectus dolores!
+        Error, minus mollitia.</p>
+</section>
+<section id="formulario">
+
+    <form class="form-registro" id="formu" action="{% url 'FORMU' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h2 class="form-titulo">Agregar una Nueva Mascota</h2>
+        <input type="hidden" name="txtUser" value="{{user.username}}">
+        <div class="contenedor-imp">
+            <input class="col-48" type="text" name="txtNombre" id="txtNombre" placeholder="ingrese nombre"
+                pattern="[A-Za-z ]{3,25}" title="recuerde que es un nombre">
+            <input class="col-48" type="number" name="txtEdad" id="txtEdad">
+            <textarea class="col-100" style="margin-top: 15px;margin-bottom: 15px;" name="txtDesc"
+                id="txtDesc"></textarea>
+            <input class="col-100" type="file" name="txtImg" id="txtImg">
+            <select class="col-100" style="margin-top: 15px;padding: 15px;" name="cboTipo" id="cboTipo">
+                {% for item in tipos %}
+                <option value="{{item.nombre}}">{{item.nombre}}</option>
+                {% endfor %}
+            </select>
+
+            <input class="btn-enviar" type="submit" value="Grabar">
+            <input class="btn-enviar" type="submit" value="Eliminar">
+            <input class="btn-enviar" type="submit" value="Buscar">
+            <input class="btn-enviar" type="submit" value="Modificar">
+            <input class="btn-enviar" type="reset" value="Limpiar">
+        </div>
+    </form>
+    <div style="text-align: center;color: red;font-size: xx-large;">
+        {{mensaje}}
+    </div>
+</section>
+
+<section>
+    <div id="listado" style="margin:50px;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Edad</th>
+                    <th>Descripcion</th>
+                    <th>Imagen</th>
+                    <th>Tipo</th>
+                    <th>Operacion</th>
+                    <th>Publicado</th>
+                    <th>Comentario</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reg in mascotas %}
+                <tr>
+                    <td>{{reg.nombre}}</td>
+                    <td>{{reg.edad}}</td>
+                    <td>{{reg.descripcion}}</td>
+                    <td>
+                        <img src="{{reg.imagen.url}}" width="150px" height="150px">
+                    </td>
+                    <td>{{reg.tipo.nombre}}</td>
+                    <td>
+                        {% if reg.comentario != 'Adoptada' %}
+                        <button class="btn btn-danger" onclick="eliminar('{{reg.nombre}}')">Eliminar</button>
+                        <button class="btn btn-warning" onclick="modificar('{{reg.nombre}}')">Modificar</button>
+                        <button class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="insertar_imagen('{{reg.nombre}}')">Agregar Imagen</button>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if reg.publicar %}
+                        <h5>Publicado</h5>
+                        {% else %}
+                        {% if reg.comentario != 'Adoptada' %}
+                        <div style="color: red;">
+                            <h5>No Publicado</h5>
+                        </div>
+                        {% endif %}
+
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div>
+                            {% if reg.comentario == 'Adoptada' %}
+                            <div style="color: green;">Mascota Adoptada</div>
+                            {% else %}
+                            {{reg.comentario}}
+                            {% endif %}
+
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+<section>
+    <!-- Button trigger modal -->
+   <!---- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        Launch static backdrop modal
+    </button> -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Agregar Imagen</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{% url 'INSERTIMAGEN' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        Seleccione Imagen:
+                        <input type="text" name="txtMascota" id="txtMascota">
+                        <input type="file" name="txtIma" id="txtIma">
+                        <input type="submit" value="Enviar">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock contenido %}
+
+{% block js %}
+<script>
+
+    function insertar_imagen(nombre) {
+        document.getElementById("txtMascota").value=nombre;
+    }
+    function eliminar(nombre) {
+        Swal.fire({
+            title: 'Eliminar Mascota ' + nombre + " ?",
+            showDenyButton: true,
+            confirmButtonText: `Eliminar`,
+            denyButtonText: `No Eliminar`,
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                location.href = '/eliminar_mascota/' + nombre + "/";
+            } else if (result.isDenied) {
+                Swal.fire('Cancelo Proceso', '', 'info')
+            }
+        })
+
+        /*var opcion= confirm("Desea eliminar la mascota "+nombre+" ?");
+        if (opcion == true) {
+            location.href='/eliminar_mascota/'+nombre+"/";
+        } else {
+            alert("cancelo operacion");
+        }*/
+    }
+    function modificar(nombre) {
+        location.href = '/buscar/' + nombre + '/'
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+    crossorigin="anonymous"></script>
+{% endblock js %}
